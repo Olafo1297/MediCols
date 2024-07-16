@@ -2,7 +2,6 @@
 using MediCols_Aplicattion.Service;
 using MediCols_Aplicattion.Utilities;
 using MediCols_Domain.Entity;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MediCols_Api.Controllers
@@ -17,6 +16,11 @@ namespace MediCols_Api.Controllers
         _usuarioService = usuarioService;
         }
 
+        /// <summary>
+        /// Metodo que valida la existencia del usuario y si existe genera token requerido para llamado otros endpoints
+        /// </summary>
+        /// <param name="datosUsuario"></param>
+        /// <returns></returns>
         [HttpPost("GetUsuario")]
         public async Task<IActionResult> GetUsuario(Usuario datosUsuario)
         {
@@ -27,7 +31,6 @@ namespace MediCols_Api.Controllers
                 {
                     result = new JsonResult( _usuarioService.ValidateUsuario(datosUsuario))
                 });
-
             }
             else
             {
@@ -38,6 +41,30 @@ namespace MediCols_Api.Controllers
             }
 
 
+        }
+
+        /// <summary>
+        /// Metodo que permite el flujo de creacion de Usuario
+        /// </summary>
+        /// <param name="datosUsuario"></param>
+        /// <returns></returns>
+        [HttpPost("CreateUsuario")]
+        public async Task<IActionResult> CreateUsuario(Usuario datosUsuario)
+        {
+            try
+            {
+                return StatusCode(StatusCodes.Status200OK, new
+                {
+                    result = await _usuarioService.CreateUsuarios(datosUsuario)
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, new
+                {
+                    result = ex.Message + " " + ex.StackTrace
+                });
+            }
         }
     }
 }

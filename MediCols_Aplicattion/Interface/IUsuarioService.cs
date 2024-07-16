@@ -6,5 +6,6 @@ namespace MediCols_Aplicattion.Interface
     {
         public Task<int> GetUsuario(Usuario datosUsuario);
         public dynamic ValidateUsuario(Usuario datosUsuario);
+        public Task<string> CreateUsuarios(Usuario datosUsuario);
     }
 }

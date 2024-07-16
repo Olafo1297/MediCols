@@ -1,6 +1,8 @@
 ﻿using MediCols_Aplicattion.Interface;
+using MediCols_Aplicattion.Utilities;
 using MediCols_Domain.Entity;
 using MediCols_Infrastructure.Interface;
+using MediCols_Infrastructure.Repository;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -58,6 +60,19 @@ namespace MediCols_Aplicattion.Service
                     message = "Token generado no exitosamente.",
                     token = ""
                 };
+            }
+        }
+
+        public async Task<string> CreateUsuarios(Usuario datosUsuario)
+        {
+            try
+            {
+                int respuesta = await _usuarioRepository.CreateUsuario(datosUsuario);
+                return respuesta == 1 ? MensajesUtilities.MensajeUsuarioInsercionExitosa : MensajesUtilities.MensajeUsuarioInsercionNoExitosa;
+            }
+            catch (Exception)
+            {
+                return MensajesUtilities.MensajeUsuarioInsercionNoExitosa;
             }
         }
 

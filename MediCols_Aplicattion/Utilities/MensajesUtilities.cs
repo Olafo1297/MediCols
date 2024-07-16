@@ -10,5 +10,7 @@
         public const string MensajeMedicoEliminacionNoExitosa = "Se elimino el médico de manera no exitosa";
         public const string MensajeUsuarioExistente = "El usuario se consulto de manera exitosa";
         public const string MensajeUsuarioNoExistente = "El usuario se consulto de manera no exitosa";
+        public const string MensajeUsuarioInsercionExitosa = "Inserción de usuario exitosa";
+        public const string MensajeUsuarioInsercionNoExitosa = "Inserción de usuario no exitosa";
     }
 }

@@ -27,5 +27,24 @@ namespace MediCols_Infrastructure.Repository
 
             return lista.Count() > 0 ? 1 : 0;
         }
+
+        public async Task<int> CreateUsuario(Usuario datosUsuario)
+        {
+            try
+            {
+                DynamicParameters parametro = new DynamicParameters();
+                parametro.Add("@Usuario", datosUsuario.Usuari, DbType.String);
+                parametro.Add("@Contra", datosUsuario.Contra, DbType.String);
+                
+                
+                int respuesta = await Connection.ExecuteAsync("CREATE_USUARIOS", parametro, commandType: CommandType.StoredProcedure);
+
+                return respuesta;
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
     }
 }
